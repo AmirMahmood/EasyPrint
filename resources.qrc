@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/img">
+        <file alias="scale-down">images/icons8-compress-24.png</file>
+        <file alias="hscale-up">images/icons8-divider-24.png</file>
+        <file alias="scale-up">images/icons8-enlarge-24.png</file>
+        <file alias="vscale-down">images/icons8-merge-horizontal-24.png</file>
+        <file alias="hscale-down">images/icons8-merge-vertical-24.png</file>
+        <file alias="vscale-up">images/icons8-split-vertical-24.png</file>
+    </qresource>
+</RCC>

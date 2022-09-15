@@ -1,0 +1,11 @@
+_stuff/
+
+.idea/
+
+resources_rc.py
+ui/*.py
+
+## pyinstaller
+dist/
+build/
+main.spec
