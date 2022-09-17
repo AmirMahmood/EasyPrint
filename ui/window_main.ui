@@ -14,7 +14,7 @@
    <bool>true</bool>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>EasyPrint</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -381,8 +381,14 @@
     </property>
     <addaction name="actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menulang">
+    <property name="title">
+     <string>lang</string>
+    </property>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuPages"/>
+   <addaction name="menulang"/>
    <addaction name="menuHelp"/>
   </widget>
   <action name="actionSave">

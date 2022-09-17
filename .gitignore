@@ -8,4 +8,4 @@ ui/*.py
 ## pyinstaller
 dist/
 build/
-main.spec
+EasyPrint.spec

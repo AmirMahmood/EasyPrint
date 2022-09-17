@@ -1,9 +1,7 @@
 import sys
 import traceback
-from pathlib import Path
 
 from PyQt5 import QtCore
-from PyQt5.QtCore import QTranslator
 from PyQt5.QtWidgets import QApplication
 
 from window_main import WindowMain
@@ -16,10 +14,6 @@ def main(argv):
     app.setApplicationVersion("1.0.0")
     app.setOrganizationName("EasyPrint")
     app.setOrganizationDomain("https://github.com/AmirMahmood/")
-
-    translator = QTranslator()
-    print(translator.load("fa", directory=str(Path(__file__).parent / 'locales')))
-    app.installTranslator(translator)
 
     if QtCore.QT_VERSION >= 0x50501:
         def excepthook(type_, value, traceback_):

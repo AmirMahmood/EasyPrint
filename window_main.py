@@ -2,8 +2,8 @@
 from datetime import datetime
 from pathlib import Path
 
-from PyQt5.QtCore import Qt, QStandardPaths
-from PyQt5.QtWidgets import QMainWindow, QActionGroup
+from PyQt5.QtCore import Qt, QStandardPaths, QTranslator, QEvent, QSettings
+from PyQt5.QtWidgets import QMainWindow, QActionGroup, QAction, QApplication
 
 from dialog_about import DialogAbout
 from graphics_scene import CustomQGraphicsScene, CropType
@@ -14,6 +14,7 @@ class WindowMain(Ui_MainWindow, QMainWindow):
     def __init__(self, parent=None):
         Ui_MainWindow.__init__(self)
         QMainWindow.__init__(self, parent=parent)
+        self.translator = QTranslator()
         self.setupUi(self)
 
         self.crop_type = CropType.CIRCLE
@@ -32,6 +33,8 @@ class WindowMain(Ui_MainWindow, QMainWindow):
         page_action_group.addAction(self.actionA4)
         page_action_group.addAction(self.actionA5)
         page_action_group.triggered.connect(self.change_page)
+
+        self.init_langs()
 
         self.actionAbout.triggered.connect(self.show_about_dialog)
 
@@ -55,6 +58,41 @@ class WindowMain(Ui_MainWindow, QMainWindow):
 
         self.reconstruct_page(*self.page_size_dict['A4'])
         self.graphicsView.scale(1 / (self.zoom_factor * 5), 1 / (self.zoom_factor * 5))
+
+    def init_langs(self):
+        langs = [
+            ('English', ''),
+            ('فارسی', 'fa')
+        ]
+        lang_action_g = QActionGroup(self)
+        lang_action_g.setExclusive(True)
+        curr_lang = QSettings().value('lang', '')
+        for i, (name, code) in enumerate(langs):
+            q = QAction(self)
+            q.setCheckable(True)
+            q.setData(code)
+            q.setText(name)
+            lang_action_g.addAction(q)
+            self.menulang.addAction(q)
+            if code == curr_lang:
+                q.setChecked(True)
+                self.change_lang(q)
+        lang_action_g.triggered.connect(self.change_lang)
+
+    def change_lang(self, action):
+        code = action.data()
+        QSettings().setValue('lang', code)
+        if code:
+            print(self.translator.load(code, directory=str(Path(__file__).parent / 'locales')))
+            QApplication.instance().installTranslator(self.translator)
+        else:
+            print()
+            QApplication.instance().removeTranslator(self.translator)
+
+    def changeEvent(self, event):
+        if event.type() == QEvent.LanguageChange:
+            self.retranslateUi(self)
+        super().changeEvent(event)
 
     def crop_type_change(self, checked):
         if checked == Qt.CheckState.Checked:
