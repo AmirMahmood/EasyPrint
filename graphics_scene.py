@@ -22,6 +22,7 @@ class CustomQGraphicsScene(QGraphicsScene):
         self.crop_type = None
 
         self.page_rect_item = None
+        self.page_rect_border_item = None
 
         self.show_rulers = False
         self.ruler_items = None
@@ -48,6 +49,7 @@ class CustomQGraphicsScene(QGraphicsScene):
             for i in self.items():
                 i.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsMovable, True)
             self.page_rect_item.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsMovable, False)
+            self.page_rect_border_item.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsMovable, False)
             self.ruler_items.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsMovable, False)
 
     def change_ruler(self, show_rulers):
@@ -59,6 +61,7 @@ class CustomQGraphicsScene(QGraphicsScene):
 
     def reconstruct_page(self, w, h):
         self.removeItem(self.page_rect_item)
+        self.removeItem(self.page_rect_border_item)
         self.removeItem(self.ruler_items)
 
         self.page_rect_item = QGraphicsRectItem(0, 0, w, h)
@@ -67,6 +70,14 @@ class CustomQGraphicsScene(QGraphicsScene):
         self.addItem(self.page_rect_item)
         self.page_rect_item.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsMovable, False)
         self.page_rect_item.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, False)
+
+        self.page_rect_border_item = QGraphicsRectItem(0, 0, w, h)
+        self.page_rect_border_item.setBrush(QBrush(Qt.GlobalColor.red, Qt.BrushStyle.NoBrush))
+        self.page_rect_border_item.setPen(QPen(Qt.GlobalColor.red, 9, Qt.DashDotLine, Qt.RoundCap, Qt.RoundJoin))
+        self.page_rect_border_item.setZValue(999999)
+        self.addItem(self.page_rect_border_item)
+        self.page_rect_border_item.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsMovable, False)
+        self.page_rect_border_item.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, False)
 
         self.ruler_items = self.createItemGroup([
             self.addLine(int(w / 2), 0, int(w / 2), h, Qt.GlobalColor.blue),
@@ -81,12 +92,14 @@ class CustomQGraphicsScene(QGraphicsScene):
         self.clearSelection()
         ruler_state = self.ruler_items.isVisible()
         self.ruler_items.hide()
+        self.page_rect_border_item.hide()
         pixmap = QImage(self.page_rect_item.rect().size().toSize(), QImage.Format.Format_RGB16)
         painter = QPainter(pixmap)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         self.render(painter, source=self.page_rect_item.rect())
         painter.end()
         self.change_ruler(ruler_state)
+        self.page_rect_border_item.show()
         print("Image saved:", pixmap.save(dist_path, quality=100))
 
     def crop(self, clicked):
