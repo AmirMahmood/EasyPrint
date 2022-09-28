@@ -72,7 +72,7 @@ class CustomQGraphicsScene(QGraphicsScene):
         self.page_rect_item.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, False)
 
         self.page_rect_border_item = QGraphicsRectItem(0, 0, w, h)
-        self.page_rect_border_item.setBrush(QBrush(Qt.GlobalColor.red, Qt.BrushStyle.NoBrush))
+        self.page_rect_border_item.setBrush(QBrush(Qt.GlobalColor.transparent, Qt.BrushStyle.NoBrush))
         self.page_rect_border_item.setPen(QPen(Qt.GlobalColor.red, 9, Qt.DashDotLine, Qt.RoundCap, Qt.RoundJoin))
         self.page_rect_border_item.setZValue(999999)
         self.addItem(self.page_rect_border_item)
@@ -89,22 +89,19 @@ class CustomQGraphicsScene(QGraphicsScene):
         self.change_ruler(self.show_rulers)
 
     def save_png(self, dist_path):
-        self.clearSelection()
-        ruler_state = self.ruler_items.isVisible()
-        self.ruler_items.hide()
-        self.page_rect_border_item.hide()
+        self.toggle_util_items()
         pixmap = QImage(self.page_rect_item.rect().size().toSize(), QImage.Format.Format_RGB16)
         painter = QPainter(pixmap)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         self.render(painter, source=self.page_rect_item.rect())
         painter.end()
-        self.change_ruler(ruler_state)
-        self.page_rect_border_item.show()
         print("Image saved:", pixmap.save(dist_path, quality=100))
+        self.toggle_util_items()
 
     def crop(self, clicked):
         if not self.crop_item:
             return
+        self.toggle_util_items()
 
         size_w, size_h = self.crop_item.rect().toAlignedRect().width(), self.crop_item.rect().toAlignedRect().height()
 
@@ -138,6 +135,7 @@ class CustomQGraphicsScene(QGraphicsScene):
         self.removeItem(self.item_to_crop)
         i = self.add_image(target)
         i.setPos(self.crop_item.boundingRect().topLeft())
+        self.toggle_util_items()
 
     def mousePressEvent(self, event):
         if event.button() == Qt.MouseButton.LeftButton and self.crop_mode:
@@ -240,3 +238,11 @@ class CustomQGraphicsScene(QGraphicsScene):
         item.setFlag(QGraphicsItem.GraphicsItemFlag.ItemSendsScenePositionChanges, True)
         item.setTransformOriginPoint(item.sceneBoundingRect().center())
         return item
+
+    def toggle_util_items(self):
+        self.clearSelection()
+        if self.show_rulers and self.ruler_items.isVisible():
+            self.ruler_items.hide()
+        elif self.show_rulers and not self.ruler_items.isVisible():
+            self.ruler_items.show()
+        self.page_rect_border_item.setVisible(not self.page_rect_border_item.isVisible())
