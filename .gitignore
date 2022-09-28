@@ -5,6 +5,8 @@ _stuff/
 resources_rc.py
 ui/*.py
 
+__pycache__
+
 ## pyinstaller
 dist/
 build/

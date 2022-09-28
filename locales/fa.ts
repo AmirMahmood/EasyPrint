@@ -6,28 +6,13 @@
     <message>
         <location filename="../ui/dialog_about.ui" line="14"/>
         <source>About</source>
-        <translation>درباره</translation>
-    </message>
-    <message>
-        <location filename="../ui/dialog_about.ui" line="26"/>
-        <source>EasyPrint</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../ui/dialog_about.ui" line="33"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-hr { height: 1px; border-width: 0; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Segoe UI&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Icons by &lt;a href=&quot;https://icons8.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;icons8&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">درباره</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../ui/window_main.ui" line="401"/>
+        <location filename="../ui/window_main.ui" line="421"/>
         <source>A4</source>
         <translation></translation>
     </message>
@@ -102,27 +87,27 @@ hr { height: 1px; border-width: 0; }
         <translation>برش</translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="365"/>
+        <location filename="../ui/window_main.ui" line="379"/>
         <source>Pages</source>
         <translation>صفحه</translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="374"/>
+        <location filename="../ui/window_main.ui" line="388"/>
         <source>File</source>
         <translation>فایل</translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="390"/>
+        <location filename="../ui/window_main.ui" line="410"/>
         <source>Save</source>
         <translation>ذخیره</translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="409"/>
+        <location filename="../ui/window_main.ui" line="429"/>
         <source>A5</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="417"/>
+        <location filename="../ui/window_main.ui" line="437"/>
         <source>Show Rulers</source>
         <translation>خط کش</translation>
     </message>
@@ -132,14 +117,24 @@ hr { height: 1px; border-width: 0; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="380"/>
+        <location filename="../ui/window_main.ui" line="394"/>
         <source>Help</source>
         <translation>راهنما</translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="422"/>
+        <location filename="../ui/window_main.ui" line="442"/>
         <source>About</source>
-        <translation type="unfinished">درباره ما</translation>
+        <translation>درباره</translation>
+    </message>
+    <message>
+        <location filename="../ui/window_main.ui" line="345"/>
+        <source>Duplicate</source>
+        <translation>کپی</translation>
+    </message>
+    <message>
+        <location filename="../ui/window_main.ui" line="400"/>
+        <source>lang</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

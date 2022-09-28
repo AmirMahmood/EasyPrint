@@ -28,6 +28,8 @@ class WindowMain(Ui_MainWindow, QMainWindow):
 
         self.scene = CustomQGraphicsScene(self)
 
+        self.duplicateButton.clicked.connect(self.scene.duplicate_item)
+
         page_action_group = QActionGroup(self)
         page_action_group.setExclusive(True)
         page_action_group.addAction(self.actionA4)
@@ -83,10 +85,9 @@ class WindowMain(Ui_MainWindow, QMainWindow):
         code = action.data()
         QSettings().setValue('lang', code)
         if code:
-            print(self.translator.load(code, directory=str(Path(__file__).parent / 'locales')))
+            self.translator.load(code, directory=str(Path(__file__).parent / 'locales'))
             QApplication.instance().installTranslator(self.translator)
         else:
-            print()
             QApplication.instance().removeTranslator(self.translator)
 
     def changeEvent(self, event):
@@ -174,6 +175,7 @@ class WindowMain(Ui_MainWindow, QMainWindow):
         on_crop = self.cropCheckBox.isChecked()
         one_selection_without_crop = one_selection and not on_crop
 
+        self.duplicateButton.setEnabled(one_selection_without_crop)
         self.scaleUpButton.setEnabled(one_selection_without_crop)
         self.scaleDownButton.setEnabled(one_selection_without_crop)
         self.vscaleUpButton.setEnabled(one_selection_without_crop)

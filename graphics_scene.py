@@ -219,10 +219,20 @@ class CustomQGraphicsScene(QGraphicsScene):
         else:
             event.ignore()
 
+    def duplicate_item(self):
+        if len(self.selectedItems()) == 1:
+            item = self.add_image(self.selectedItems()[0])
+            self.clearSelection()
+            return item
+
     def add_image(self, file_path):
-        px = QPixmap(file_path)
-        # px = px.scaled(self.scene.sceneRect().size().toSize() * 0.8, Qt.AspectRatioMode.KeepAspectRatio)
-        item = QGraphicsPixmapItem(px)
+        if isinstance(file_path, QGraphicsPixmapItem):
+            item = QGraphicsPixmapItem(file_path.pixmap())
+            item.setTransform(file_path.sceneTransform())
+        else:
+            px = QPixmap(file_path)
+            # px = px.scaled(self.scene.sceneRect().size().toSize() * 0.8, Qt.AspectRatioMode.KeepAspectRatio)
+            item = QGraphicsPixmapItem(px)
 
         self.addItem(item)
         item.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsMovable, not self.crop_mode)
