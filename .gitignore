@@ -1,11 +1,17 @@
 _stuff/
 
 .idea/
+.venv/
+venv/
 
 resources_rc.py
 ui/*.py
 
-__pycache__
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 
 ## pyinstaller
 dist/
