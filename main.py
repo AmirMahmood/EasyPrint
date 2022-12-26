@@ -11,7 +11,7 @@ def main(argv):
     app = QApplication(argv)
     app.setApplicationName("EasyPrint")
     app.setApplicationDisplayName("EasyPrint")
-    app.setApplicationVersion("1.0.0")
+    app.setApplicationVersion("1.1.0")
     app.setOrganizationName("EasyPrint")
     app.setOrganizationDomain("https://github.com/AmirMahmood/")
 
