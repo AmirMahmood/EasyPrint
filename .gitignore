@@ -1,6 +1,7 @@
 _stuff/
 
 .idea/
+.vscode/
 .venv/
 venv/
 

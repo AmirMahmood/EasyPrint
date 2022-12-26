@@ -3,7 +3,8 @@ from enum import Enum
 
 from PyQt5.QtCore import Qt, QRectF, QRect
 from PyQt5.QtGui import QPixmap, QPainter, QImage, QBrush, QPen, QPainterPath
-from PyQt5.QtWidgets import QGraphicsScene, QGraphicsItem, QGraphicsPixmapItem, QGraphicsRectItem
+from PyQt5.QtWidgets import QGraphicsScene, QGraphicsItem, QGraphicsPixmapItem, QGraphicsRectItem, \
+    QGraphicsSimpleTextItem
 
 
 class CropType(Enum):
@@ -219,7 +220,11 @@ class CustomQGraphicsScene(QGraphicsScene):
 
     def duplicate_item(self):
         if len(self.selectedItems()) == 1:
-            item = self.add_image(self.selectedItems()[0])
+            i = self.selectedItems()[0]
+            if isinstance(i, QGraphicsSimpleTextItem):
+                item = self.add_text_item(i)
+            else:
+                item = self.add_image(i)
             self.clearSelection()
             return item
 
@@ -232,6 +237,22 @@ class CustomQGraphicsScene(QGraphicsScene):
             # px = px.scaled(self.scene.sceneRect().size().toSize() * 0.8, Qt.AspectRatioMode.KeepAspectRatio)
             item = QGraphicsPixmapItem(px)
 
+        self.addItem(item)
+        item.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsMovable, not self.crop_mode)
+        item.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, True)
+        item.setFlag(QGraphicsItem.GraphicsItemFlag.ItemSendsScenePositionChanges, True)
+        item.setTransformOriginPoint(item.sceneBoundingRect().center())
+        return item
+
+    def add_text_item(self, text_item=None):
+        item = QGraphicsSimpleTextItem()
+        item.setText("new text")
+        font = item.font()
+        font.setPointSize(100)
+        if text_item:
+            item.setText(text_item.text())
+            font = text_item.font()
+        item.setFont(font)
         self.addItem(item)
         item.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsMovable, not self.crop_mode)
         item.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, True)

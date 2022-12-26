@@ -12,102 +12,102 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../ui/window_main.ui" line="421"/>
+        <location filename="../ui/window_main.ui" line="475"/>
         <source>A4</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="120"/>
+        <location filename="../ui/window_main.ui" line="121"/>
         <source>+</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="77"/>
+        <location filename="../ui/window_main.ui" line="78"/>
         <source>-</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="108"/>
+        <location filename="../ui/window_main.ui" line="109"/>
         <source>Scale:</source>
         <translation>ابعاد:</translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="205"/>
+        <location filename="../ui/window_main.ui" line="206"/>
         <source>...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="154"/>
+        <location filename="../ui/window_main.ui" line="155"/>
         <source> - </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="221"/>
+        <location filename="../ui/window_main.ui" line="222"/>
         <source>Rotation:</source>
         <translation>چرخش:</translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="241"/>
+        <location filename="../ui/window_main.ui" line="242"/>
         <source>Position:</source>
         <translation>موقعیت:</translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="253"/>
+        <location filename="../ui/window_main.ui" line="254"/>
         <source>Up</source>
         <translation>بالا</translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="263"/>
+        <location filename="../ui/window_main.ui" line="264"/>
         <source>Down</source>
         <translation>پایین</translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="275"/>
+        <location filename="../ui/window_main.ui" line="276"/>
         <source>Crop:</source>
         <translation>بریدن:</translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="287"/>
+        <location filename="../ui/window_main.ui" line="288"/>
         <source>Square</source>
         <translation>مربع</translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="300"/>
+        <location filename="../ui/window_main.ui" line="301"/>
         <source>Circle</source>
         <translation>دایره</translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="316"/>
+        <location filename="../ui/window_main.ui" line="317"/>
         <source>Rectangle</source>
         <translation>مستطیل</translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="329"/>
+        <location filename="../ui/window_main.ui" line="330"/>
         <source>Crop</source>
         <translation>برش</translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="379"/>
+        <location filename="../ui/window_main.ui" line="433"/>
         <source>Pages</source>
         <translation>صفحه</translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="388"/>
+        <location filename="../ui/window_main.ui" line="442"/>
         <source>File</source>
         <translation>فایل</translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="410"/>
+        <location filename="../ui/window_main.ui" line="464"/>
         <source>Save</source>
         <translation>ذخیره</translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="429"/>
+        <location filename="../ui/window_main.ui" line="483"/>
         <source>A5</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="437"/>
+        <location filename="../ui/window_main.ui" line="491"/>
         <source>Show Rulers</source>
         <translation>خط کش</translation>
     </message>
@@ -117,24 +117,39 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="394"/>
+        <location filename="../ui/window_main.ui" line="448"/>
         <source>Help</source>
         <translation>راهنما</translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="442"/>
+        <location filename="../ui/window_main.ui" line="496"/>
         <source>About</source>
         <translation>درباره</translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="345"/>
+        <location filename="../ui/window_main.ui" line="349"/>
         <source>Duplicate</source>
         <translation>کپی</translation>
     </message>
     <message>
-        <location filename="../ui/window_main.ui" line="400"/>
+        <location filename="../ui/window_main.ui" line="454"/>
         <source>lang</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/window_main.ui" line="356"/>
+        <source>Add Text</source>
+        <translation>افزودن متن</translation>
+    </message>
+    <message>
+        <location filename="../ui/window_main.ui" line="397"/>
+        <source>B</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/window_main.ui" line="407"/>
+        <source>Color</source>
+        <translation>رنگ</translation>
     </message>
 </context>
 </TS>

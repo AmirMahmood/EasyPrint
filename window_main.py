@@ -3,7 +3,8 @@ from datetime import datetime
 from pathlib import Path
 
 from PyQt5.QtCore import Qt, QStandardPaths, QTranslator, QEvent, QSettings
-from PyQt5.QtWidgets import QMainWindow, QActionGroup, QAction, QApplication
+from PyQt5.QtWidgets import QMainWindow, QActionGroup, QAction, QApplication, QGraphicsPixmapItem, \
+    QGraphicsSimpleTextItem, QColorDialog
 
 from dialog_about import DialogAbout
 from graphics_scene import CustomQGraphicsScene, CropType
@@ -60,6 +61,13 @@ class WindowMain(Ui_MainWindow, QMainWindow):
 
         self.reconstruct_page(*self.page_size_dict['A4'])
         self.graphicsView.scale(1 / (self.zoom_factor * 5), 1 / (self.zoom_factor * 5))
+
+        self.addTextButton.clicked.connect(self.scene.add_text_item)
+        self.itemTextEdit.setHidden(True)
+        self.fontComboBox.setHidden(True)
+        self.fontsizeSpinBox.setHidden(True)
+        self.textBoldToolButton.setHidden(True)
+        self.openColorDialogToolButton.setHidden(True)
 
     def init_langs(self):
         langs = [
@@ -129,6 +137,16 @@ class WindowMain(Ui_MainWindow, QMainWindow):
 
         self.pageSizeLabel.setText(self.currentPage)
 
+    def change_text_item_size(self, item, tsize):
+        f = item.font()
+        f.setPointSize(tsize)
+        item.setFont(f)
+
+    def change_text_item_weight(self, item, checked):
+        f = item.font()
+        f.setBold(checked)
+        item.setFont(f)
+
     def item_selection_changed(self):
         try:
             self.rotationSlider.valueChanged.disconnect()
@@ -140,12 +158,28 @@ class WindowMain(Ui_MainWindow, QMainWindow):
             self.hscaleDownButton.clicked.disconnect()
             self.itemUpButton.clicked.disconnect()
             self.itemDownButton.clicked.disconnect()
+            self.itemTextEdit.textChanged.disconnect()
+            self.fontsizeSpinBox.valueChanged.disconnect()
+            self.fontComboBox.currentFontChanged.disconnect()
+            self.textBoldToolButton.toggled.disconnect()
+            self.openColorDialogToolButton.clicked.disconnect()
         except TypeError:
             pass
         self.rotationSlider.setValue(0)
 
         if len(self.scene.selectedItems()) == 1:
             item = self.scene.selectedItems()[0]
+
+            if isinstance(item, QGraphicsSimpleTextItem):
+                self.textBoldToolButton.setChecked(item.font().bold())
+                self.itemTextEdit.setPlainText(item.text())
+                self.fontsizeSpinBox.setValue(item.font().pointSize())
+                self.fontComboBox.setCurrentFont(item.font())
+                self.fontComboBox.currentFontChanged.connect(item.setFont)
+                self.fontsizeSpinBox.valueChanged.connect(lambda x: self.change_text_item_size(item, x))
+                self.itemTextEdit.textChanged.connect(lambda: item.setText(self.itemTextEdit.toPlainText()))
+                self.textBoldToolButton.toggled.connect(lambda x: self.change_text_item_weight(item, x))
+                self.openColorDialogToolButton.clicked.connect(lambda: self.open_text_color_dialog(item))
 
             self.rotationSlider.setValue(int(item.rotation()))
             self.rotationSlider.valueChanged.connect(item.setRotation)
@@ -193,8 +227,26 @@ class WindowMain(Ui_MainWindow, QMainWindow):
         self.rectCropCheckBox.setEnabled(on_crop)
         self.cropButton.setEnabled(on_crop)
 
+        self.addTextButton.setEnabled(not on_crop)
+        text_edit = not (
+            not on_crop and one_selection and isinstance(self.scene.selectedItems()[0], QGraphicsSimpleTextItem)
+        )
+        self.itemTextEdit.setHidden(text_edit)
+        self.fontComboBox.setHidden(text_edit)
+        self.fontsizeSpinBox.setHidden(text_edit)
+        self.textBoldToolButton.setHidden(text_edit)
+        self.openColorDialogToolButton.setHidden(text_edit)
+
         if not on_crop:
-            self.cropCheckBox.setEnabled(one_selection)
+            self.cropCheckBox.setEnabled(
+                one_selection and isinstance(self.scene.selectedItems()[0], QGraphicsPixmapItem)
+            )
+
+    def open_text_color_dialog(self, item):
+        d = QColorDialog(item.brush().color(), self)
+        d.setOption(QColorDialog.NoButtons, True)
+        d.currentColorChanged.connect(item.setBrush)
+        d.exec()
 
     def save_png(self, clicked):
         desktop_path = Path(QStandardPaths.writableLocation(QStandardPaths.StandardLocation.DesktopLocation))

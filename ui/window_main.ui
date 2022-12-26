@@ -37,6 +37,7 @@
           <property name="font">
            <font>
             <pointsize>14</pointsize>
+            <weight>75</weight>
             <bold>true</bold>
             <underline>false</underline>
            </font>
@@ -350,6 +351,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="addTextButton">
+          <property name="text">
+           <string>Add Text</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <spacer name="verticalSpacer">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -361,6 +369,49 @@
            </size>
           </property>
          </spacer>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QFontComboBox" name="fontComboBox"/>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="fontsizeSpinBox">
+            <property name="accelerated">
+             <bool>true</bool>
+            </property>
+            <property name="minimum">
+             <number>15</number>
+            </property>
+            <property name="maximum">
+             <number>99999</number>
+            </property>
+            <property name="singleStep">
+             <number>5</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="textBoldToolButton">
+            <property name="text">
+             <string>B</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="openColorDialogToolButton">
+            <property name="text">
+             <string>Color</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPlainTextEdit" name="itemTextEdit"/>
         </item>
        </layout>
       </item>
