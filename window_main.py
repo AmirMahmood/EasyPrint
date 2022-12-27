@@ -85,7 +85,7 @@ class WindowMain(Ui_MainWindow, QMainWindow):
   
         settings = QSettings()
         fav_fonts = []
-        for fontn in settings.value('favfonts'):
+        for fontn in settings.value('favfonts', []):
             fav_fonts.append(fontn)
   
         # adding list of items to combo box

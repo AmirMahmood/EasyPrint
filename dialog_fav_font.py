@@ -12,7 +12,7 @@ class DialogFavFont(Ui_FavFontDialog, QDialog):
         self.setupUi(self)
         self.addToolButton.clicked.connect(self.add_font)
         settings = QSettings()
-        for fontn in settings.value('favfonts'):
+        for fontn in settings.value('favfonts', []):
             self.plainTextEdit.appendPlainText(fontn)
 
     def add_font(self):
