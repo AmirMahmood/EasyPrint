@@ -6,5 +6,6 @@
         <file alias="vscale-down">images/icons8-merge-horizontal-24.png</file>
         <file alias="hscale-down">images/icons8-merge-vertical-24.png</file>
         <file alias="vscale-up">images/icons8-split-vertical-24.png</file>
+        <file alias="fav">images/icons8-star-64.png</file>
     </qresource>
 </RCC>

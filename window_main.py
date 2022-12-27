@@ -4,9 +4,10 @@ from pathlib import Path
 
 from PyQt5.QtCore import Qt, QStandardPaths, QTranslator, QEvent, QSettings
 from PyQt5.QtWidgets import QMainWindow, QActionGroup, QAction, QApplication, QGraphicsPixmapItem, \
-    QGraphicsSimpleTextItem, QColorDialog
+    QGraphicsSimpleTextItem, QColorDialog, QComboBox
 
 from dialog_about import DialogAbout
+from dialog_fav_font import DialogFavFont
 from graphics_scene import CustomQGraphicsScene, CropType
 from ui.ui_window_main import Ui_MainWindow
 
@@ -40,6 +41,7 @@ class WindowMain(Ui_MainWindow, QMainWindow):
         self.init_langs()
 
         self.actionAbout.triggered.connect(self.show_about_dialog)
+        self.actionFavorite_Fonts.triggered.connect(self.show_fav_fonts_dialog)
 
         self.cirCropCheckBox.stateChanged.connect(self.crop_type_change)
         self.sqrCropCheckBox.stateChanged.connect(self.crop_type_change)
@@ -68,6 +70,30 @@ class WindowMain(Ui_MainWindow, QMainWindow):
         self.fontsizeSpinBox.setHidden(True)
         self.textBoldToolButton.setHidden(True)
         self.openColorDialogToolButton.setHidden(True)
+        self.favFontsToolButton.setHidden(True)
+        self.favFontsToolButton.clicked.connect(self.show_fav_fonts)
+
+    def show_fav_fonts(self):
+        def change_to_fav_font(x):
+            f = self.fontComboBox.currentFont()
+            f.setFamily(x)
+            self.fontComboBox.setCurrentFont(f)
+
+        combo_box = QComboBox(self)
+        # setting geometry of combo box
+        combo_box.setGeometry(self.favFontsToolButton.geometry())
+  
+        settings = QSettings()
+        fav_fonts = []
+        for fontn in settings.value('favfonts'):
+            fav_fonts.append(fontn)
+  
+        # adding list of items to combo box
+        combo_box.addItems(fav_fonts)
+        combo_box.adjustSize()
+  
+        combo_box.showPopup()
+        combo_box.textActivated.connect(change_to_fav_font)
 
     def init_langs(self):
         langs = [
@@ -236,6 +262,7 @@ class WindowMain(Ui_MainWindow, QMainWindow):
         self.fontsizeSpinBox.setHidden(text_edit)
         self.textBoldToolButton.setHidden(text_edit)
         self.openColorDialogToolButton.setHidden(text_edit)
+        self.favFontsToolButton.setHidden(text_edit)
 
         if not on_crop:
             self.cropCheckBox.setEnabled(
@@ -257,3 +284,7 @@ class WindowMain(Ui_MainWindow, QMainWindow):
     def show_about_dialog(self, clicked):
         di = DialogAbout(self)
         di.show()
+
+    def show_fav_fonts_dialog(self, clicked):
+        di = DialogFavFont(self)
+        di.exec()
